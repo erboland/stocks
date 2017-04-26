@@ -28,7 +28,6 @@ class StockPriceView: UIView {
     func initializeSubviews() {
         let view = Bundle.main.loadNibNamed("StockPrice", owner: self, options: nil)?[0] as! UIView
         self.addSubview(view)
-        self.backgroundColor = UIColor.clear
         view.frame = self.bounds
     }
 

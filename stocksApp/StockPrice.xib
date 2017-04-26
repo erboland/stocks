@@ -21,16 +21,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1023.32" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FR1-pi-Zcd">
-                    <rect key="frame" x="0.0" y="0.0" width="410" height="40"/>
+                    <rect key="frame" x="0.0" y="16" width="410" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="Sfx-OV-KgP"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="44"/>
+                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="48"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+$83 (16%) Сегодня " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b4B-xc-G2m">
-                    <rect key="frame" x="0.0" y="40" width="410" height="25"/>
+                    <rect key="frame" x="0.0" y="56" width="410" height="25"/>
                     <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
                     <color key="textColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -38,7 +38,7 @@
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="FR1-pi-Zcd" secondAttribute="trailing" id="A65-PX-dPw"/>
-                <constraint firstItem="FR1-pi-Zcd" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Fci-by-pH8"/>
+                <constraint firstItem="FR1-pi-Zcd" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="Fci-by-pH8"/>
                 <constraint firstItem="b4B-xc-G2m" firstAttribute="top" secondItem="FR1-pi-Zcd" secondAttribute="bottom" id="a24-sY-ja2"/>
                 <constraint firstAttribute="trailing" secondItem="b4B-xc-G2m" secondAttribute="trailing" id="aEz-Ok-ojW"/>
                 <constraint firstItem="b4B-xc-G2m" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="oUH-78-ShB"/>

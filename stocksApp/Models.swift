@@ -12,7 +12,7 @@ import SocketIO
 
 enum StockEnum: String{
     case mainColor = "80C783"
-    case url = "http://192.168.1.3:3000"
+    case url = "http://10.27.115.137:3000"
 }
 
 enum TimeRangeEnum: String {

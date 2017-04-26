@@ -9,15 +9,17 @@
 import UIKit
 import Alamofire
 
-class LineGraphView: UIView {
+@IBDesignable class LineGraphView: UIView {
 
     var linePath = UIBezierPath()
     var verticalPath = UIBezierPath()
     
     var maxY: CGFloat = 0
     var minY: CGFloat = 0
-    var lineWidth: CGFloat = 0
-    var lineColor: UIColor?
+    
+    
+    @IBInspectable public var lineWidth: CGFloat! = 0
+    @IBInspectable public var lineColor: UIColor!
     
     var data: [CGFloat]!
     var dates: [CGFloat: String]!

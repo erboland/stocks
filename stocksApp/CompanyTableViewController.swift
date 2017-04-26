@@ -16,10 +16,21 @@ class CompanyTableViewController: UITableViewController, TimeRangeControlDelegat
     var lineGraphView: LineGraphView!
     var timeRangeControl: TimeRangeControl!
     var stockPriceView: StockPriceView!
+    var buyButton: UIButton!
+    var sellButton: UIButton!
+    
+    var name: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        navigationController?.navigationBar.barTintColor = UIColor(hex: StockEnum.mainColor.rawValue)
+        navigationController?.navigationBar.topItem?.title = name!
+        navigationController?.navigationBar.tintColor = .white
+
+       
+    
         stockPriceView = StockPriceView(frame: CGRect(x: 0, y: 8, width: view.frame.width, height: 100))
         
         lineGraphView = LineGraphView(frame: CGRect(x: 16, y: 108, width: view.frame.width - 32, height: 100))
@@ -30,6 +41,22 @@ class CompanyTableViewController: UITableViewController, TimeRangeControlDelegat
         timeRangeControl = TimeRangeControl(frame: CGRect(x: 0, y: 216, width: view.frame.width, height: 40))
         timeRangeControl.delegate = self
         
+        buyButton = UIButton(frame: CGRect(x: 16, y: 264, width: UIScreen.main.bounds.width / 2 - 32 , height: 40 ))
+        buyButton.setTitle("КУПИТЬ", for: .normal)
+        buyButton.setTitleColor(.white, for: .normal)
+        buyButton.tintColor = .white
+        buyButton.layer.cornerRadius = 4
+        buyButton.backgroundColor = UIColor(hex: StockEnum.mainColor.rawValue)
+        buyButton.addTarget(self, action: #selector(toTrade(sender:)), for: .touchUpInside)
+        
+        sellButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width / 2 + 16, y: 264, width: UIScreen.main.bounds.width / 2 - 32 , height: 40 ))
+        sellButton.setTitle("ПРОДАТЬ", for: .normal)
+        sellButton.setTitleColor(.white, for: .normal)
+        sellButton.layer.cornerRadius = 4
+        sellButton.backgroundColor = UIColor(hex: StockEnum.mainColor.rawValue)
+        sellButton.addTarget(self, action: #selector(toTrade(sender:)), for: .touchUpInside)
+        
+        
         let wrapperView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 256))
         
         wrapperView.backgroundColor = UIColor(hex: StockEnum.mainColor.rawValue)
@@ -37,6 +64,11 @@ class CompanyTableViewController: UITableViewController, TimeRangeControlDelegat
         wrapperView.addSubview(lineGraphView)
         wrapperView.addSubview(timeRangeControl)
         
+        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 320))
+
+        containerView.addSubview(wrapperView)
+        containerView.addSubview(buyButton)
+        containerView.addSubview(sellButton)
         
         Socket().onStocksOf("GOOGL") { data in
             print(data)
@@ -44,8 +76,12 @@ class CompanyTableViewController: UITableViewController, TimeRangeControlDelegat
         
         lineGraphView.showStocksFor(.today, symbol: "GOOGL")
         
-        tableView.tableHeaderView = wrapperView
+        tableView.tableHeaderView = containerView
 
+    }
+    
+    func toTrade(sender: UIButton){
+        self.performSegue(withIdentifier: "toTrade", sender: self)
     }
     
     func selectedChanged(range: TimeRangeEnum) {
@@ -68,8 +104,7 @@ class CompanyTableViewController: UITableViewController, TimeRangeControlDelegat
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        print(section)
+      
         switch section {
         case 0:
             return 4
@@ -81,7 +116,6 @@ class CompanyTableViewController: UITableViewController, TimeRangeControlDelegat
             fatalError("Errrooooooor")
         }
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
@@ -89,6 +123,7 @@ class CompanyTableViewController: UITableViewController, TimeRangeControlDelegat
         case 0:
             
             let  cell = tableView.dequeueReusableCell(withIdentifier: "News") as! NewsTableViewCell
+          
 //            cell.newsLabel.text = newsArray[indexPath.row].text
 //            cell.dateLabel.text = newsArray[indexPath.row].date
             return cell
@@ -130,29 +165,33 @@ class CompanyTableViewController: UITableViewController, TimeRangeControlDelegat
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return 70
+            return 60
         case 1:
-            return 50
+            return 40
         case 2:
-            return 70
+            return 60
         default:
             return 100
         }
+    }
+    
+    @IBAction func unwind(sender: UIStoryboardSegue){
+        
     }
  
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let title = self.sections[section]
         
-        let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 50))
+        let titleLabel = UILabel(frame: CGRect(x: 8, y: 42, width: self.view.bounds.width, height: 18))
         titleLabel.text = title
         titleLabel.textAlignment = .left
-        titleLabel.font = UIFont(name: "AvenirNext-Medium", size: 20)
+        titleLabel.font = UIFont(name: "AvenirNext-Regular", size: 22)
         titleLabel.backgroundColor = UIColor.white
         
         return titleLabel
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return 60
     }
     
 }

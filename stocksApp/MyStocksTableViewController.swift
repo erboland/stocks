@@ -22,9 +22,14 @@ class MyStocksTableViewController: UITableViewController, TimeRangeControlDelega
     var timeRangeControl: TimeRangeControl!
     var stockPriceView: StockPriceView!
     
+    var companyName: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
- 
+        
+        
+        navigationController?.navigationBar.barTintColor = UIColor(hex: StockEnum.mainColor.rawValue)
+        
         stockPriceView = StockPriceView(frame: CGRect(x: 0, y: 8, width: view.frame.width, height: 100))
        
         lineGraphView = LineGraphView(frame: CGRect(x: 16, y: 108, width: view.frame.width - 32, height: 100))
@@ -57,9 +62,7 @@ class MyStocksTableViewController: UITableViewController, TimeRangeControlDelega
     func selectedChanged(range: TimeRangeEnum) {
         self.lineGraphView.showStocksFor(range, symbol: "GOOGL")
     }
-
-    // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -70,9 +73,11 @@ class MyStocksTableViewController: UITableViewController, TimeRangeControlDelega
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Stock", for: indexPath) as? StockTableViewCell else {
             fatalError("stocksix")
         }
+        
         cell.symbol = stocks[indexPath.row]
         cell.sharesLabel.text = "Акций \(indexPath.row)"
         cell.growthLabel.text = "\(indexPath.row)"
@@ -80,12 +85,27 @@ class MyStocksTableViewController: UITableViewController, TimeRangeControlDelega
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        print(stocks[indexPath.row])
+        
+        companyName = stocks[indexPath.row]
+        self.performSegue(withIdentifier: "toCompany", sender: self)
+    }
     
      //MARK: - Navigation
 
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        return
+        
+        if segue.identifier == "toCompany" {
+            let des = segue.destination as! UINavigationController
+            let controller = des.topViewController as! CompanyTableViewController
+            
+            print(companyName,123)
+            
+            controller.name = companyName
+        }
+        
     }
     
 

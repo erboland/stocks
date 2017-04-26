@@ -33,8 +33,8 @@ class TimeRangeControl: UIControl {
         }
     }
     
-    var standartColor: UIColor = UIColor.white
-    var selectedColor: UIColor = UIColor(hex: StockEnum.mainColor.rawValue)
+    @IBInspectable public var standartColor: UIColor = UIColor.white
+    @IBInspectable public var selectedColor: UIColor = UIColor(hex: StockEnum.mainColor.rawValue)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,8 +53,6 @@ class TimeRangeControl: UIControl {
        
         for (index,item) in items.enumerated() {
             
-         
-            
             let label = UILabel(frame: CGRect(x: CGFloat(index) * labelWidth , y: 0, width: labelWidth, height: self.frame.height))
             label.text = item.first?.key
             label.font = UIFont(name: "AvenirNext-Medium", size: 18)
@@ -62,6 +60,7 @@ class TimeRangeControl: UIControl {
             label.textColor = standartColor
             labels.append(label)
             self.addSubview(label)
+            
         }
         
         selectedChanged()
@@ -78,7 +77,6 @@ class TimeRangeControl: UIControl {
         
         let label = labels[selectedIndex]
         
-        label
         label.textColor = UIColor.black
     }
     

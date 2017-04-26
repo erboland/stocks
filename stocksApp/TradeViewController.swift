@@ -29,7 +29,7 @@ class TradeViewController: UIViewController, NumbersKeyboardDelegate, UITextFiel
         let view = UIView(frame: CGRect(x: 20, y: 0, width: 100, height: 40))
 //        view.backgroundColor = UIColor.red
         
-        UINavigationBar.appearance().backgroundColor = UIColor.white
+        UINavigationBar.appearance().backgroundColor = .white
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         
