@@ -55,7 +55,7 @@ class TimeRangeControl: UIControl {
             
             let label = UILabel(frame: CGRect(x: CGFloat(index) * labelWidth , y: 0, width: labelWidth, height: self.frame.height))
             label.text = item.first?.key
-            label.font = UIFont(name: "AvenirNext-Medium", size: 18)
+            label.font = UIFont(name: "AvenirNext-Regular", size: 18)
             label.textAlignment = .center
             label.textColor = standartColor
             labels.append(label)
@@ -72,12 +72,13 @@ class TimeRangeControl: UIControl {
         delegate?.selectedChanged(range: (items[selectedIndex].first?.value)!)
         
         for label in labels {
-            label.textColor = standartColor
+            label.alpha = 0.6
+            
         }
         
         let label = labels[selectedIndex]
-        
-        label.textColor = UIColor.black
+       
+        label.alpha = 1.0
     }
     
     override func layoutSubviews() {

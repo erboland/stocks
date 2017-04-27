@@ -12,7 +12,6 @@ class StockPriceView: UIView {
 
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var statsLabel: UILabel!
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,6 +29,5 @@ class StockPriceView: UIView {
         self.addSubview(view)
         view.frame = self.bounds
     }
-
 
 }

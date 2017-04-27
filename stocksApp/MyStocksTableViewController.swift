@@ -29,18 +29,22 @@ class MyStocksTableViewController: UITableViewController, TimeRangeControlDelega
         
         
         navigationController?.navigationBar.barTintColor = UIColor(hex: StockEnum.mainColor.rawValue)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.backIndicatorImage = UIImage()
         
-        stockPriceView = StockPriceView(frame: CGRect(x: 0, y: 8, width: view.frame.width, height: 100))
+        let screen = UIScreen.main.bounds
+        
+        stockPriceView = StockPriceView(frame: CGRect(x: 0, y: screen.height - 200, width: view.frame.width, height: 100))
        
-        lineGraphView = LineGraphView(frame: CGRect(x: 16, y: 108, width: view.frame.width - 32, height: 100))
-        lineGraphView.lineWidth = 3
+        lineGraphView = LineGraphView(frame: CGRect(x: 16, y: 108, width: view.frame.width - 32, height: 200))
+        lineGraphView.lineWidth = 2
         lineGraphView.lineColor = UIColor.white
         lineGraphView.backgroundColor = UIColor.clear
         
-        timeRangeControl = TimeRangeControl(frame: CGRect(x: 0, y: 216, width: view.frame.width, height: 40))
+        timeRangeControl = TimeRangeControl(frame: CGRect(x: 16 , y: 350, width: view.frame.width - 32, height: 40))
         timeRangeControl.delegate = self
         
-        let wrapperView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 256))
+        let wrapperView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: UIScreen.main.bounds.height - 64))
         
         wrapperView.backgroundColor = UIColor(hex: StockEnum.mainColor.rawValue)
         wrapperView.addSubview(stockPriceView)

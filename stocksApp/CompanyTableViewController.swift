@@ -16,14 +16,13 @@ class CompanyTableViewController: UITableViewController, TimeRangeControlDelegat
     var lineGraphView: LineGraphView!
     var timeRangeControl: TimeRangeControl!
     var stockPriceView: StockPriceView!
-    var buyButton: UIButton!
-    var sellButton: UIButton!
-    
+   
     var name: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let screen = UIScreen.main.bounds
         
         navigationController?.navigationBar.barTintColor = UIColor(hex: StockEnum.mainColor.rawValue)
         navigationController?.navigationBar.topItem?.title = name!
@@ -34,41 +33,32 @@ class CompanyTableViewController: UITableViewController, TimeRangeControlDelegat
         stockPriceView = StockPriceView(frame: CGRect(x: 0, y: 8, width: view.frame.width, height: 100))
         
         lineGraphView = LineGraphView(frame: CGRect(x: 16, y: 108, width: view.frame.width - 32, height: 100))
-        lineGraphView.lineWidth = 3
+        lineGraphView.lineWidth = 2
         lineGraphView.lineColor = UIColor.white
         lineGraphView.backgroundColor = UIColor.clear
         
         timeRangeControl = TimeRangeControl(frame: CGRect(x: 0, y: 216, width: view.frame.width, height: 40))
         timeRangeControl.delegate = self
         
-        buyButton = UIButton(frame: CGRect(x: 16, y: 264, width: UIScreen.main.bounds.width / 2 - 32 , height: 40 ))
-        buyButton.setTitle("КУПИТЬ", for: .normal)
-        buyButton.setTitleColor(.white, for: .normal)
-        buyButton.tintColor = .white
-        buyButton.layer.cornerRadius = 4
-        buyButton.backgroundColor = UIColor(hex: StockEnum.mainColor.rawValue)
-        buyButton.addTarget(self, action: #selector(toTrade(sender:)), for: .touchUpInside)
         
-        sellButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width / 2 + 16, y: 264, width: UIScreen.main.bounds.width / 2 - 32 , height: 40 ))
-        sellButton.setTitle("ПРОДАТЬ", for: .normal)
-        sellButton.setTitleColor(.white, for: .normal)
-        sellButton.layer.cornerRadius = 4
-        sellButton.backgroundColor = UIColor(hex: StockEnum.mainColor.rawValue)
-        sellButton.addTarget(self, action: #selector(toTrade(sender:)), for: .touchUpInside)
+        let buyButton = createButton(title: "КУПИТЬ", x: 16 )
+        let sellButton = createButton(title: "ПРОДАТЬ", x: screen.width / 2 + 16)
         
+
         
-        let wrapperView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 256))
+        let wrapperView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: screen.height - 64))
+        
         
         wrapperView.backgroundColor = UIColor(hex: StockEnum.mainColor.rawValue)
+        
+        wrapperView.addSubview(buyButton)
+        wrapperView.addSubview(sellButton)
         wrapperView.addSubview(stockPriceView)
         wrapperView.addSubview(lineGraphView)
         wrapperView.addSubview(timeRangeControl)
-        
-        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 320))
-
-        containerView.addSubview(wrapperView)
-        containerView.addSubview(buyButton)
-        containerView.addSubview(sellButton)
+    
+//        containerView.addSubview(button)
+//        containerView.addSubview(sellButton)
         
         Socket().onStocksOf("GOOGL") { data in
             print(data)
@@ -76,8 +66,24 @@ class CompanyTableViewController: UITableViewController, TimeRangeControlDelegat
         
         lineGraphView.showStocksFor(.today, symbol: "GOOGL")
         
-        tableView.tableHeaderView = containerView
+        tableView.tableHeaderView = wrapperView
 
+    }
+    
+    func createButton(title: String, x: CGFloat) -> UIButton{
+        
+        let screen = UIScreen.main.bounds
+        
+        let button = UIButton(frame: CGRect(x: x, y: screen.height - 56, width: UIScreen.main.bounds.width / 2 - 32 , height: 40 ))
+        
+        button.setTitle(title, for: .normal)
+        button.backgroundColor = UIColor(hex: "A5D6A7")
+        button.setTitleColor(.white, for: .normal)
+        button.tintColor = .white
+        button.layer.cornerRadius = 4
+        button.addTarget(self, action: #selector(toTrade(sender:)), for: .touchUpInside)
+        
+        return button
     }
     
     func toTrade(sender: UIButton){

@@ -21,7 +21,7 @@ class StockTableViewCell: UITableViewCell {
         didSet {
             nameLabel.text = symbol
             
-            getRealTimeStock(symbol)
+//            getRealTimeStock(symbol)
         }
     }
     
